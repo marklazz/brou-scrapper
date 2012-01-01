@@ -29,14 +29,10 @@ module Brou
       end
 
       def scrape_and_notify!
-        orig_stdout = $stdout
-        $stdout = File.new(File.join(File.dirname(__FILE__), '..', '..', 'tmp', 'log'), 'w')
         self.init
         Brou::Scrapper.new(self.config, self.storage).scrape
       rescue NotifyAmountChanged
         notify!
-      ensure
-        $stdout = orig_stdout
       end
     end
   end
