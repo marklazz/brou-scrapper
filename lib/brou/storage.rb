@@ -2,7 +2,7 @@ module Brou
   class Storage
     attr_accessor :content
 
-    FILENAME = File.join(File.dirname(__FILE__), '..', '..', 'tmp', 'storage.txt' )
+    FILENAME = File.join(File.dirname(__FILE__), '..', '..', 'tmp', 'cache.html' )
 
     def amount_changed?(old_content)
       #self.content != old_content
@@ -23,7 +23,7 @@ module Brou
 
     def serialized_accounts(accounts)
       accounts.inject("<p>") do |res, data|
-        res += "#{data[:number]}: #{data[:amount]}<br>\n"
+        res += "#{data[:number]}: #{data[:amount]}<br/>"
       end.concat("</p>")
     end
 
