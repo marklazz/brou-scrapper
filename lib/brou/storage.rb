@@ -22,9 +22,9 @@ module Brou
     end
 
     def serialized_accounts(accounts)
-      accounts.inject("") do |res, data|
-        res += "#{data[:number]},#{data[:amount]}|"
-      end
+      accounts.inject("<p>") do |res, data|
+        res += "#{data[:number]}: #{data[:amount]}<br>\n"
+      end.concat("</p>")
     end
 
     def write!

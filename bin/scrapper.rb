@@ -3,4 +3,4 @@
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
 require 'lib/brou'
-Brou::Api.scrape_and_notify!
+Brou::Controller.scrape_and_notify!
