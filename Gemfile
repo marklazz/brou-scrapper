@@ -2,8 +2,12 @@ source 'http://rubygems.org'
 source 'http://gems.github.com'
 
 gem 'gmail'
-gem 'ruby-debug'
-gem 'capybara', '0.4.0'
+gem 'capybara'
 gem 'launchy'
-gem 'akephalos', :git => 'git://github.com/Nerian/akephalos.git'
-gem 'capybara-envjs'
+#gem 'akephalos', :git => 'git://github.com/thoughtbot/akephalos.git'
+gem 'json'
+gem 'capybara-webkit'
+
+group :development do
+  gem 'ruby-debug'
+end

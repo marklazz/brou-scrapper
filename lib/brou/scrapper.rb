@@ -1,30 +1,23 @@
 require 'capybara'
 require 'capybara/dsl'
-#require 'capybara/envjs'
-require 'akephalos'
+require 'capybara-webkit'
+#require 'akephalos'
 
 module Brou
   class Scrapper
     include Capybara
+    include Brou::Logger
 
     attr_accessor :agent, :conf, :storage
 
     def authenticate
       log "#authenticate"
-      fill_in 'userName', :with => @conf.username
-      fill_in 'password', :with => @conf.password
-      #puts find(:button).inspect
-      click_button('button')
-      #submit_form('formLogin')
-      #page.evaluate_script("document.forms['formLogin'].submit()")
-      #click_button('_eventId_ok')
-      #find('button').click
-#      within('#formLogin') do
-        #page.find(:xpath, "//input[@type='submit']").click
-      #end
-      #find(:button).click
-      #find_button('button').click
-      #page.execute_script("document.forms['formLogin'].submit()")
+      within "#formLogin" do
+        fill_in 'userName', :with => @conf.username
+        fill_in 'password', :with => @conf.password
+      end
+      find(:xpath, "//input[@type='submit']").click
+      sleep(3)
     end
 
     def initialize(conf, storage)
@@ -32,23 +25,19 @@ module Brou
       self.conf = conf
       self.storage = storage
       Capybara.run_server = false
-      Capybara.default_wait_time = 30
-      #Capybara.javascript_driver = Capybara.current_driver = :akephalos
-      #Capybara.current_driver = :akephalos
-      #Capybara.javascript_driver = :envjs
-      Capybara.current_driver = :selenium
+      Capybara.default_wait_time = 5
+      Capybara.current_driver = :webkit
       Capybara.app_host = 'http://www.brou.com.uy'
     end
 
     def get_accounts
       log "#get_accounts"
       count = all(:xpath, "//form[@id='formCuentas']//tbody/tr").length
-      #count = all("#formCuentas tbody tr").length
       log "account count = #{count}"
       result = (1 .. (count - 2)).inject([]) do |accounts, i|
         data = {}
         number, amount = all(:xpath, "//form[@id='formCuentas']//tbody/tr/td[3]")[i], all(:xpath, "//form[@id='formCuentas']//tbody/tr/td[4]")[i]
-        log "#number #{number}, #account: #{amount}"
+        log "#number #{number.text if number}, #account: #{amount.text if amount}"
         data[:number] = number.text if number
         data[:amount] = amount.text if amount
         accounts << data if @conf.accounts.include?(data[:number])
@@ -65,19 +54,15 @@ module Brou
 
     def close_session
       log "#close_session"
-      find('li.salir a').click
-    end
-
-    def log str
-      print "#{str}\n"
+      find('#span_header_salir').click
     end
 
     def scrape
       setup_agent
       authenticate
-      sleep(4)
+      #sleep(4)
       click_continue_if_present
-      sleep(10)
+      #sleep(10)
       storage.save(get_accounts)
       close_session
     end

@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), 'brou', 'boot')
 require File.join(File.dirname(__FILE__), 'brou', 'notify_amount_changed')
 require File.join(File.dirname(__FILE__), 'brou', 'configuration')
+require File.join(File.dirname(__FILE__), 'brou', 'logger')
 require File.join(File.dirname(__FILE__), 'brou', 'storage')
 require File.join(File.dirname(__FILE__), 'brou', 'scrapper')
 require File.join(File.dirname(__FILE__), 'brou', 'api')
