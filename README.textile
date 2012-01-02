@@ -1,14 +1,26 @@
-= brou-scrapper
+h1. brou-scrapper
 
-Utilidad que corre en background (cron), que chequea cambios en tu cuenta bancaria BROU y te notifica a tu cuenta Gmail.
+Utility (that runs in background, as a Cron Job) that checks for chanegs on your BROU (http://brou.com.uy) account. When it find changes, it sends a notification email to your account in Gmail.
 
-== Uso
+h2. Installation
 
-Luego de configurar appropiadamente config.yml. Se puede utilizar de la siguiente forma, dentro de cron:
+First you'll need to run bundler in order to fulfill the dependencies that the tool relies on. To do that execute:
 
-0-59/10 * * * * cd /path/to/brou-scrapper && /path/to/bundle exec /path/to/ruby /path/to/brou-scrapper/bin/scrapper.rb
+<pre>
+  brou-scrapper$ bundle
+</pre>
 
-== License
+Then you'll have to setup your account data on brou-scrapper/config.yml.
+
+h2. Usage
+
+Using it is just a matter of running brou-scrapper/bin/scrapper.rb. In particular, you can use this entry within crontab:
+
+<pre>
+0-59/30 13-19 * * * cd /path/to/brou-scrapper && /path/to/bundle exec /path/to/ruby /path/to/brou-scrapper/bin/scrapper.rb
+</pre>
+
+h2. License
 
 Copyright (c) 2010 Marcelo Giorgi
 
