@@ -6,8 +6,9 @@ require 'capybara-webkit'
 module Brou
   class Scrapper
     include Capybara
+    include Brou::Logger
 
-    attr_accessor :agent, :conf, :storage, :logger
+    attr_accessor :agent, :conf, :storage
 
     def authenticate
       log "#authenticate"
@@ -19,12 +20,7 @@ module Brou
       sleep(3)
     end
 
-    def log str
-      logger.log str
-    end
-
-    def initialize(conf, storage, logger)
-      self.logger = logger
+    def initialize(conf, storage)
       log "#initialize"
       self.conf = conf
       self.storage = storage

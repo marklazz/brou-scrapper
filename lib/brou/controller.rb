@@ -14,7 +14,7 @@ module Brou
 
       def scrapper
         log "#scrapper"
-        @scrapper ||= Brou::Scrapper.new(self.config, self.storage, self)
+        @scrapper ||= Brou::Scrapper.new(self.config, self.storage)
       end
 
       def scrape_and_notify
