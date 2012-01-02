@@ -1,0 +1,5 @@
+username: brou_user
+password: your_brou_password
+email: gmail_account
+email_password: gmail_password
+accounts: [account_no_1, account_no_2]
