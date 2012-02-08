@@ -5,7 +5,6 @@ module Brou
     FILENAME = File.join(File.dirname(__FILE__), '..', '..', 'tmp', 'cache.html' )
 
     def amount_changed?(old_content)
-      #self.content != old_content
       old_content && self.content != old_content
     end
 
